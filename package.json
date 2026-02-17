@@ -1,0 +1,14 @@
+{
+  "name": "principia-blog",
+  "version": "1.0.0",
+  "description": "Blog o fizyce — od mechaniki kwantowej po astrofizykę",
+  "main": "index.js",
+  "scripts": {
+    "dev": "live-server --port=3000 --open=index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
