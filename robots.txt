@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dondoggo.github.io/principia-blog/sitemap.xml

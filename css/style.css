@@ -130,7 +130,7 @@ header.header-hidden {
     background: none;
     border: none;
     padding: 4px;
-    z-index: 200;
+    z-index: 101;
 }
 
 .hamburger span {
@@ -162,7 +162,7 @@ header.header-hidden {
     height: 100vh;
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
-    z-index: 150;
+    z-index: 99;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -223,6 +223,10 @@ header.header-hidden {
 
 .post-card.hidden {
     display: none;
+}
+
+.post-card.animate-in {
+    animation: slideUpFade 0.6s var(--easing) forwards;
 }
 
 .post-media {
@@ -330,6 +334,18 @@ header.header-hidden {
 .arrow { transition: transform 0.3s var(--easing); }
 .post-card:hover .arrow { transform: translateX(5px); }
 
+.coming-soon {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border: 1px dashed var(--border);
+    border-radius: 40px;
+}
+
 /* ════════════ FOOTER ════════════ */
 footer {
     border-top: 1px solid var(--border);
@@ -400,6 +416,11 @@ footer {
     font-size: 13px;
     outline: none;
     transition: border-color 0.3s;
+}
+
+.newsletter-form input::placeholder {
+    color: var(--text-soft);
+    opacity: 0.7;
 }
 
 .newsletter-form input:focus {

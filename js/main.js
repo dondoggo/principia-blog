@@ -13,9 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
             postCards.forEach(card => {
                 if (category === 'all' || card.dataset.category === category) {
                     card.classList.remove('hidden');
-                    card.style.animation = 'none';
-                    card.offsetHeight; // reflow
-                    card.style.animation = 'slideUpFade 0.6s var(--easing) forwards';
+                    card.classList.remove('animate-in');
+                    requestAnimationFrame(() => {
+                        card.classList.add('animate-in');
+                    });
                 } else {
                     card.classList.add('hidden');
                 }
@@ -39,20 +40,27 @@ document.addEventListener('DOMContentLoaded', () => {
         revealElements.forEach(el => observer.observe(el));
     }
 
-    /* ════════════ AUTO-HIDE HEADER NA SCROLL ════════════ */
+    /* ════════════ AUTO-HIDE HEADER NA SCROLL (throttled) ════════════ */
     const header = document.querySelector('header');
     let lastScrollY = window.scrollY;
+    let ticking = false;
 
     window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const currentScrollY = window.scrollY;
 
-        if (currentScrollY > lastScrollY && currentScrollY > 200) {
-            header.classList.add('header-hidden');
-        } else {
-            header.classList.remove('header-hidden');
+                if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+
+                lastScrollY = currentScrollY;
+                ticking = false;
+            });
+            ticking = true;
         }
-
-        lastScrollY = currentScrollY;
     });
 
     /* ════════════ HAMBURGER MENU ════════════ */
@@ -61,15 +69,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (hamburger && mobileNav) {
         hamburger.addEventListener('click', () => {
+            const isOpen = mobileNav.classList.toggle('open');
             hamburger.classList.toggle('active');
-            mobileNav.classList.toggle('open');
-            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+            hamburger.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+
+            if (isOpen) {
+                const firstLink = mobileNav.querySelector('a');
+                firstLink?.focus();
+            }
         });
 
         mobileNav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 mobileNav.classList.remove('open');
+                hamburger.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
             });
         });
@@ -78,7 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ════════════ SMOOTH SCROLL ════════════ */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
-            const target = document.querySelector(anchor.getAttribute('href'));
+            const href = anchor.getAttribute('href');
+            if (href === '#') return;
+            const target = document.querySelector(href);
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth' });

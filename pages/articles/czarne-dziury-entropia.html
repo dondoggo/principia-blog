@@ -6,7 +6,7 @@
     <title>Czarne dziury i entropia — PRINCIPIA // BLOG</title>
     <meta name="description" content="Promieniowanie Hawkinga, horyzont zdarzeń i paradoks informacji. Czarne dziury na styku ogólnej teorii względności i mechaniki kwantowej.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
             <a href="../about.html">O blogu</a>
         </nav>
 
-        <button class="hamburger" aria-label="Menu">
+        <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-nav">
             <span></span>
             <span></span>
             <span></span>
@@ -31,7 +31,7 @@
     </div>
 </header>
 
-<nav class="mobile-nav">
+<nav class="mobile-nav" id="mobile-nav">
     <a href="../../index.html">Strona główna</a>
     <a href="../../index.html">Archiwum</a>
     <a href="../about.html">O blogu</a>
@@ -137,12 +137,34 @@
 
 <footer>
     <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">PRINCIPIA // BLOG</div>
+                <p class="footer-desc">
+                    Blog poświęcony fizyce — od mechaniki kwantowej po kosmologię. Przybliżamy fascynujące zagadnienia nauki w przystępny sposób.
+                </p>
+            </div>
+            <div>
+                <div class="footer-heading">Nawigacja</div>
+                <ul class="footer-links">
+                    <li><a href="../../index.html">Strona główna</a></li>
+                    <li><a href="../about.html">O blogu</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-heading">Newsletter</div>
+                <p style="font-size: 13px; margin-bottom: 8px;">Otrzymuj nowe artykuły na skrzynkę.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Zapisano!'; this.querySelector('input').disabled = true;">
+                    <input type="email" placeholder="Twój e-mail" aria-label="Adres e-mail" required>
+                    <button type="submit">Subskrybuj</button>
+                </form>
+            </div>
+        </div>
         <div class="footer-bottom">
             <span>&copy; 2026 Principia Blog. Wszelkie prawa zastrzeżone.</span>
             <div class="social-links">
-                <a href="#">Twitter</a>
-                <a href="#">GitHub</a>
-                <a href="#">RSS</a>
+                <a href="https://x.com" target="_blank" rel="noopener">Twitter</a>
+                <a href="https://github.com/dondoggo/principia-blog" target="_blank" rel="noopener">GitHub</a>
             </div>
         </div>
     </div>

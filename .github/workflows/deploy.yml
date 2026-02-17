@@ -22,8 +22,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Create deploy directory
+        run: |
+          mkdir _site
+          cp index.html _site/
+          cp -r css _site/
+          cp -r js _site/
+          cp -r pages _site/
+          cp robots.txt _site/ 2>/dev/null || true
+          cp sitemap.xml _site/ 2>/dev/null || true
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
       - id: deployment
         uses: actions/deploy-pages@v4
